@@ -18,7 +18,7 @@ public class ShowController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/shows")
-    public List<Show> getAllShows() {
+    public List<ShowDAO> getAllShows() {
         return showService.getAllShows();
     }
 

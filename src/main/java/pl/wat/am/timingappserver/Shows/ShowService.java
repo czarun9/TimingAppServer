@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -21,10 +22,15 @@ public class ShowService {
         return (Show) showRepository.findById(id).orElse(null);
     }
 
-    public List<Show> getAllShows() {
-        List<Show> shows = new ArrayList<>();
-        Iterable<Show> it = showRepository.findAll();
-        it.forEach(shows::add);
+    public List<ShowDAO> getAllShows() {
+        List<ShowDAO> shows = new ArrayList<>();
+        Iterator<Show> it = showRepository.findAll().iterator();
+        while(it.hasNext()){
+            Show show=it.next();
+            shows.add(new ShowDAO(show.id,show.name));
+        }
         return shows;
     }
+
+
 }
