@@ -13,14 +13,14 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name="SEASONS")
+@Table(name = "SEASONS")
 public class Season {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @Id
+    String id;
     String description;
     Integer noOfSeason;
     @ManyToOne
-    @JoinColumn(name= "show_id",nullable = false)
+    @JoinColumn(name = "show_id", nullable = false)
     Show show;
 
     @OneToMany
@@ -30,9 +30,10 @@ public class Season {
     public Season() {
     }
 
-    public Season(long showId, String description, Integer noOfSeason) {
-        this.id = showId + noOfSeason;
+    public Season(String showId, String description, Integer noOfSeason) {
+        this.id = showId + "_" + noOfSeason;
         this.description = description;
         this.noOfSeason = noOfSeason;
+        this.show = new Show();
     }
 }

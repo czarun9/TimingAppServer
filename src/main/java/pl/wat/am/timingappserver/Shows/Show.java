@@ -16,11 +16,10 @@ import java.util.List;
 @Entity
 public class Show {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @Id
+    String id;
     String name;
-    String country;
-    @OneToMany (mappedBy = "show")
+    @OneToMany(mappedBy = "show")
     List<Season> seasons;
     @OneToMany(mappedBy = "show")
     List<ShowHasUser> showHasUsers;
@@ -28,9 +27,9 @@ public class Show {
     public Show() {
     }
 
-    public Show(String name, String country) {
+    public Show(String id, String name) {
         super();
+        this.id = id;
         this.name = name;
-        this.country = country;
     }
 }
