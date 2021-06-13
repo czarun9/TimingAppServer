@@ -6,6 +6,8 @@ import pl.wat.am.timingappserver.Shows.Show;
 import pl.wat.am.timingappserver.Users.User;
 import pl.wat.am.timingappserver.Users.UserService;
 
+import java.util.List;
+
 @RestController
 public class UserShowsOnWatchedListController {
 
@@ -17,5 +19,10 @@ public class UserShowsOnWatchedListController {
         userShowsOnWatchedList.setUser(new User(userId));
         userShowsOnWatchedList.setShow(new Show(showOnWatchedListId,""));
         userShowsOnWatchedListService.addUserShowsOnWatchedList(userShowsOnWatchedList);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value ="users/{userId}/shows")
+    public List<UserShowsOnWatchedListDAO> getAllUserShowsOnWatchedList(@PathVariable String userId){
+        return userShowsOnWatchedListService.getAllUserShowsOnWatchedList(userId);
     }
 }
