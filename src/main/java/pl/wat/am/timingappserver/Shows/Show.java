@@ -4,7 +4,7 @@ package pl.wat.am.timingappserver.Shows;
 import lombok.Getter;
 import lombok.Setter;
 import pl.wat.am.timingappserver.Seasons.Season;
-import pl.wat.am.timingappserver.ShowHasUsers.ShowHasUser;
+import pl.wat.am.timingappserver.UserHasShowOnWatchedList.UserShowsOnWatchedList;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,7 +22,7 @@ public class Show {
     @OneToMany(mappedBy = "show")
     List<Season> seasons;
     @OneToMany(mappedBy = "show")
-    List<ShowHasUser> showHasUsers;
+    List<UserShowsOnWatchedList> showHasUsers;
 
     public Show() {
     }

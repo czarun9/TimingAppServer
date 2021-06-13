@@ -2,7 +2,7 @@ package pl.wat.am.timingappserver.Users;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.wat.am.timingappserver.ShowHasUsers.ShowHasUser;
+import pl.wat.am.timingappserver.UserHasShowOnWatchedList.UserShowsOnWatchedList;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,7 +21,7 @@ public class User {
     String id;
 
     @OneToMany(mappedBy = "user")
-    List<ShowHasUser> userHasShow;
+    List<UserShowsOnWatchedList> userHasShow;
 
     public User() {
 

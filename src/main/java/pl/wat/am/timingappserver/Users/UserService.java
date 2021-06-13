@@ -16,4 +16,8 @@ public class UserService {
     public void deleteUser(String id){
         userRepository.deleteById(id);
     }
+
+    public User getUser(String id){
+        return userRepository.findById(id).orElse(null);
+    }
 }

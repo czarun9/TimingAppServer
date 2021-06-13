@@ -1,9 +1,8 @@
-package pl.wat.am.timingappserver.ShowHasUsers;
+package pl.wat.am.timingappserver.UserHasShowOnWatchedList;
 
 
 import lombok.Getter;
 import lombok.Setter;
-import org.yaml.snakeyaml.events.Event;
 import pl.wat.am.timingappserver.Shows.Show;
 import pl.wat.am.timingappserver.Users.User;
 
@@ -13,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "ShowHasUser")
 @Entity
-public class ShowHasUser {
+public class UserShowsOnWatchedList {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
@@ -28,12 +27,10 @@ public class ShowHasUser {
 
     Boolean isOnWatchedList;
 
-    public ShowHasUser() {
+    public UserShowsOnWatchedList() {
     }
 
-    public ShowHasUser(long showId, long userId, Boolean isOnWatchedList) {
-        //this.show = show;
-        //this.user = user;
+    public UserShowsOnWatchedList(Boolean isOnWatchedList) {
         this.isOnWatchedList = isOnWatchedList;
     }
 }
