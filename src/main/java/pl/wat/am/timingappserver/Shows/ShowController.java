@@ -17,6 +17,12 @@ public class ShowController {
         return showService.getShow(id);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/shows/details/{id}")
+    public ShowDAODetails getShowDetails(@PathVariable String id) {
+        return showService.getShowDetails(id);
+    }
+
+
     @RequestMapping(method = RequestMethod.GET, value = "/shows")
     public List<ShowDAO> getAllShows() {
         return showService.getAllShows();
