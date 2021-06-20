@@ -20,7 +20,10 @@ public class UserShowsOnWatchedListService {
     ShowService showService;
 
     public void addUserShowsOnWatchedList(UserShowsOnWatchedList userShowsOnWatchedList) {
-        userShowsOnWatchedListRepository.save(userShowsOnWatchedList);
+        List <UserShowsOnWatchedList> userShowsOnWatchedListWithShow =userShowsOnWatchedListRepository.findByShow(userShowsOnWatchedList.getShow());
+        if(userShowsOnWatchedListWithShow.isEmpty()){
+            userShowsOnWatchedListRepository.save(userShowsOnWatchedList);
+        }
     }
 
     public List<UserShowsOnWatchedListDAO> getAllUserShowsOnWatchedList(String userId) {
