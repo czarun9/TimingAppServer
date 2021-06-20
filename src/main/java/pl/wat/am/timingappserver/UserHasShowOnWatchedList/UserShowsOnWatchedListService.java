@@ -30,11 +30,22 @@ public class UserShowsOnWatchedListService {
             UserShowsOnWatchedList userShowsOnWatchedList = it.next();
             if (userShowsOnWatchedList.getUser().getId().equals(userId)) {
                 Show show = showService.getShow(userShowsOnWatchedList.getShow().getId());
-                ShowDAO showDAO = new ShowDAO(show.getId(),show.getName());
+                ShowDAO showDAO = new ShowDAO(show.getId(), show.getName());
                 UserShowsOnWatchedListDAO userShowsOnWatchedListDAO = new UserShowsOnWatchedListDAO(userId, showDAO, userShowsOnWatchedList.getIsOnWatchedList());
                 watchedList.add(userShowsOnWatchedListDAO);
             }
         }
         return watchedList;
+    }
+
+
+    public void deleteUserShowsOnWatchedList(String userId, String showOnWatchedListId) {
+        List<UserShowsOnWatchedList> userShowsOnWatchedLists = showService.getShow(showOnWatchedListId).getShowHasUsers();
+
+        for (UserShowsOnWatchedList userShowsOnWatchedList : userShowsOnWatchedLists) {
+            if (userShowsOnWatchedList.getUser().getId().equals(userId)) {
+                userShowsOnWatchedListRepository.delete(userShowsOnWatchedList);
+            }
+        }
     }
 }

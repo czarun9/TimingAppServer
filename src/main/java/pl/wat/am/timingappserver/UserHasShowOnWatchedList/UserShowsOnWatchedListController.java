@@ -25,4 +25,9 @@ public class UserShowsOnWatchedListController {
     public List<UserShowsOnWatchedListDAO> getAllUserShowsOnWatchedList(@PathVariable String userId){
         return userShowsOnWatchedListService.getAllUserShowsOnWatchedList(userId);
     }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/users/{userId}/shows/{showOnWatchedListId}")
+    public void deleteUserShowsOnWatchedList(@PathVariable String userId, @PathVariable String showOnWatchedListId) {
+        userShowsOnWatchedListService.deleteUserShowsOnWatchedList(userId, showOnWatchedListId);
+    }
 }
