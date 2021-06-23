@@ -2,9 +2,11 @@ package pl.wat.am.timingappserver.Episodes;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.wat.am.timingappserver.EpisodeHasUsers.EpisodeOnWatchedList;
 import pl.wat.am.timingappserver.Seasons.Season;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Getter
@@ -23,6 +25,9 @@ public class Episode {
     @ManyToOne
     @JoinColumn(name = "season_id", nullable = false)
     Season season;
+
+    @OneToMany
+    List<EpisodeOnWatchedList> episodeOnWatchedLists;
 
     public Episode() {
     }

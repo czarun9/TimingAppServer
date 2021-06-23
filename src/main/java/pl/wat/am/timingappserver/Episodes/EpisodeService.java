@@ -22,4 +22,8 @@ public class EpisodeService {
         episodeDAODetails.setTitle(episode.getTitle());
         return episodeDAODetails;
     }
+
+    public Episode getEpisode(String episodeId) {
+        return episodeRepository.findById(episodeId).orElse(null);
+    }
 }

@@ -3,6 +3,10 @@ package pl.wat.am.timingappserver.Shows;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.wat.am.timingappserver.EpisodeHasUsers.EpisodeOnWatchedList;
+import pl.wat.am.timingappserver.EpisodeHasUsers.EpisodeOnWatchedListDAO;
+import pl.wat.am.timingappserver.EpisodeHasUsers.EpisodeOnWatchedListService;
+import pl.wat.am.timingappserver.Episodes.Episode;
 import pl.wat.am.timingappserver.Seasons.Season;
 import pl.wat.am.timingappserver.Seasons.SeasonDAO;
 
@@ -15,6 +19,8 @@ public class ShowService {
 
     @Autowired
     ShowRepository showRepository;
+    @Autowired
+    EpisodeOnWatchedListService episodeOnWatchedListService;
 
     public void addShow(Show show) {
         showRepository.save(show);
@@ -24,17 +30,25 @@ public class ShowService {
         return (Show) showRepository.findById(id).orElse(null);
     }
 
-    public ShowDAODetails getShowDetails(String id) {
+    public ShowDAODetails getShowDetails(String id, String userId) {
         Show show = (Show) showRepository.findById(id).orElse(null);
         ShowDAODetails showDAODetails = new ShowDAODetails();
         showDAODetails.setId(id);
         showDAODetails.setName(show.getName());
         List<Season> seasons = show.getSeasons();
         List<SeasonDAO> seasonDAOS = new ArrayList<>();
-        for(Season season: seasons){
-            seasonDAOS.add(new SeasonDAO(season.getId(),season.getNoOfSeason()));
+        for (Season season : seasons) {
+            seasonDAOS.add(new SeasonDAO(season.getId(), season.getNoOfSeason()));
         }
         showDAODetails.setSeasonList(seasonDAOS);
+
+        /**This loop sets watched status for Season based on watched Episodes*/
+        for (Season season : seasons) {
+            List<EpisodeOnWatchedListDAO> episodeOnWatchedListDAOS = episodeOnWatchedListService.getAllEpisodesOnWatchedListBySeason(userId, season.getId());
+            if (episodeOnWatchedListDAOS.size() == season.getEpisodes().size()) {
+                showDAODetails.setIsWatched(true);
+            }
+        }
         return showDAODetails;
     }
 
