@@ -18,7 +18,7 @@ public class ShowController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/shows/details/{id}")
-    public ShowDAODetails getShowDetails(@PathVariable String id, @RequestBody String userId) {
+    public ShowDAODetails getShowDetails(@PathVariable String id) {
         return showService.getShowDetails(id);
     }
 
