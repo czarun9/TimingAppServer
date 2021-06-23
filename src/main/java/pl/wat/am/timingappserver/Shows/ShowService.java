@@ -30,25 +30,17 @@ public class ShowService {
         return (Show) showRepository.findById(id).orElse(null);
     }
 
-    public ShowDAODetails getShowDetails(String id, String userId) {
+    public ShowDAODetails getShowDetails(String id) {
         Show show = (Show) showRepository.findById(id).orElse(null);
         ShowDAODetails showDAODetails = new ShowDAODetails();
         showDAODetails.setId(id);
         showDAODetails.setName(show.getName());
         List<Season> seasons = show.getSeasons();
         List<SeasonDAO> seasonDAOS = new ArrayList<>();
-        for (Season season : seasons) {
-            seasonDAOS.add(new SeasonDAO(season.getId(), season.getNoOfSeason()));
+        for(Season season: seasons){
+            seasonDAOS.add(new SeasonDAO(season.getId(),season.getNoOfSeason()));
         }
         showDAODetails.setSeasonList(seasonDAOS);
-
-        /**This loop sets watched status for Season based on watched Episodes*/
-        for (Season season : seasons) {
-            List<EpisodeOnWatchedListDAO> episodeOnWatchedListDAOS = episodeOnWatchedListService.getAllEpisodesOnWatchedListBySeason(userId, season.getId());
-            if (episodeOnWatchedListDAOS.size() == season.getEpisodes().size()) {
-                showDAODetails.setIsWatched(true);
-            }
-        }
         return showDAODetails;
     }
 
